@@ -1,0 +1,21 @@
+---
+# tasks file for apache
+- name: install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: start apache service
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Create website index.html
+  copy:
+    content: "{{ apache_test_message }}"
+    dest: /var/www/html/index.html
+
+- name: Show website address
+  debug:
+    msg: "http://{{ ansible_host }}"
